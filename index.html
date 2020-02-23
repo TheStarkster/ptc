@@ -10,16 +10,21 @@
     <script src="Build/UnityLoader.js"></script>
     <script>
       var gameInstance = UnityLoader.instantiate("gameContainer", "Build/webGL.json", {onProgress: UnityProgress});
+      function unityContainerHeightChange(){
+        var UnityContainer = document.getElementById('gameContainer');
+        UnityContainer.setAttribute("style","height:"+ window.innerHeight +"px;width:"+ window.innerWidth +"px");
+        var canvas = null
+        while(canvas == null){
+          canvas = document.getElementById('gameContainer').children[0]
+        }
+        canvas.width = document.body.clientWidth * window.devicePixelRatio
+        canvas.height = document.body.clientHeight * window.devicePixelRatio  
+      }
     </script>
   </head>
-  <body>
+  <body onload="unityContainerHeightChange();">
     <div class="webgl-content">
-      <div id="gameContainer" style="width: 960px; height: 600px"></div>
-      <div class="footer">
-        <div class="webgl-logo"></div>
-        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">pin the circle</div>
-      </div>
+      <div id="gameContainer"></div>
     </div>
   </body>
 </html>
